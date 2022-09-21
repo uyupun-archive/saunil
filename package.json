@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint --fix --ext .js,.ts,.tsx --ignore-path .gitignore",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{js,ts,tsx,json}'"
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,ts,tsx,json}'",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@types/react": "~18.0.0",
@@ -25,7 +26,13 @@
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1"
   },
-  "private": true
+  "private": true,
+  "lint-staged": {
+    "*.{js,ts,tsx}": "eslint --cache --fix",
+    "*.{js,ts,tsx,json}": "prettier --write"
+  }
 }
