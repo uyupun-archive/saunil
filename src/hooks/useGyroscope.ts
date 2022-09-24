@@ -23,6 +23,7 @@ export const useGyroscope = () => {
   };
 
   useEffect(() => {
+    Gyroscope.setUpdateInterval(300);
     subscribe();
     return () => unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
