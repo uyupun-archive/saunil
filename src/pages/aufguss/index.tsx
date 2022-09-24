@@ -1,21 +1,29 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+import { Text, View } from 'react-native';
+import { Gyroscope } from 'expo-sensors';
+import { useGyroscope } from '../../hooks/useGyroscope';
 
 export const Aufguss = () => {
+  const { x, y } = useGyroscope();
+
+  if (x < -10 || y < -10) {
+    console.log('アウフグースAPIへリクエスト');
+  }
+
+  if (!Gyroscope.isAvailableAsync())
+    return (
+      <View>
+        <Text>
+          &#9888;ジャイロセンサーが機能するスマートフォンをご使用ください。
+        </Text>
+      </View>
+    );
+
   return (
-    <View style={styles.container}>
-      <Text>アウフグースページ</Text>
-      <StatusBar style="auto" />
+    <View>
+      <Text>Gyroscope:</Text>
+      <Text>x: {Math.round(x)}</Text>
+      <Text>y: {Math.round(y)}</Text>
     </View>
   );
 };
