@@ -12,9 +12,21 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Top">
-        <Stack.Screen name="Top" component={Top} />
-        <Stack.Screen name="Aufguss" component={Aufguss} />
-        <Stack.Screen name="Loyly" component={Loyly} />
+        <Stack.Screen
+          name="Top"
+          component={Top}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Aufguss"
+          component={Aufguss}
+          options={{ title: 'アウフグースモード', headerTitleAlign: 'center' }}
+        />
+        <Stack.Screen
+          name="Loyly"
+          component={Loyly}
+          options={{ title: 'ロウリュモード', headerTitleAlign: 'center' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
