@@ -1,45 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import axios from 'axios';
-import { axiosClient } from './src/utils/axiosClient';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Top } from './src/pages/top';
+import { Aufguss } from './src/pages/aufguss';
+import { Loyly } from './src/pages/loyly';
+import { StackNavigator } from './src/types/stackNavigator';
+
+const Stack = createNativeStackNavigator<StackNavigator>();
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
-
-  useEffect(() => {
-    const fetcher = async () => {
-      try {
-        setIsLoading(true);
-        const res = await axiosClient.get<{ message: string }>('ping');
-        setMessage(res.data.message);
-      } catch (e) {
-        if (axios.isAxiosError(e)) {
-          console.log(e.message);
-        }
-        console.log(e);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetcher();
-  }, []);
-
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Text>{isLoading ? 'ローディング中' : message ? message : 'エラー'}</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Top">
+        <Stack.Screen name="Top" component={Top} />
+        <Stack.Screen name="Aufguss" component={Aufguss} />
+        <Stack.Screen name="Loyly" component={Loyly} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
