@@ -5,10 +5,8 @@ import { axiosClient } from '../utils/axiosClient';
 export const useAufguss = () => {
   const requested = useRef<boolean>(false);
 
-  const startAufguss = useCallback(async () => {
+  const start = useCallback(async () => {
     try {
-      if (requested.current) return;
-      requested.current = true;
       await axiosClient.post<{ message: string }>(`blower/start`);
       console.log('start');
     } catch (error) {
@@ -20,11 +18,9 @@ export const useAufguss = () => {
     }
   }, []);
 
-  const stopAufguss = useCallback(async () => {
+  const stop = useCallback(async () => {
     try {
-      if (!requested.current) return;
       await axiosClient.post<{ message: string }>(`blower/stop`);
-      requested.current = false;
       console.log('stop');
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -35,8 +31,38 @@ export const useAufguss = () => {
     }
   }, []);
 
+  const startAufguss = useCallback(async () => {
+    try {
+      if (requested.current) return;
+      requested.current = true;
+      await start();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error.message);
+        return;
+      }
+      console.error('エラーが発生しました。');
+    }
+  }, [start]);
+
+  const stopAufguss = useCallback(async () => {
+    try {
+      if (!requested.current) return;
+      await stop();
+      requested.current = false;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error.message);
+        return;
+      }
+      console.error('エラーが発生しました。');
+    }
+  }, [stop]);
+
   return {
     requested: requested.current,
+    start,
+    stop,
     startAufguss,
     stopAufguss,
   };

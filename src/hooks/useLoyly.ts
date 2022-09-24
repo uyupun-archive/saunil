@@ -5,9 +5,10 @@ import { axiosClient } from '../utils/axiosClient';
 export const useLoyly = () => {
   const requested = useRef<boolean>(false);
 
-  const startLoyly = useCallback(async () => {
+  const start = useCallback(async () => {
     try {
       await axiosClient.post<{ message: string }>(`humidifier/start`);
+      console.log('start');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(error.message);
@@ -17,9 +18,10 @@ export const useLoyly = () => {
     }
   }, []);
 
-  const stopLoyly = useCallback(async () => {
+  const stop = useCallback(async () => {
     try {
       await axiosClient.post<{ message: string }>(`humidifier/stop`);
+      console.log('stop');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(error.message);
@@ -33,14 +35,12 @@ export const useLoyly = () => {
     try {
       if (requested.current) return;
       requested.current = true;
-      await startLoyly();
-      console.log('start');
+      await start();
 
       // 10秒後に止める
       setTimeout(async () => {
-        await stopLoyly();
+        await stop();
         requested.current = false;
-        console.log('stop');
       }, 10000);
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -49,11 +49,11 @@ export const useLoyly = () => {
       }
       console.error('エラーが発生しました。');
     }
-  }, [startLoyly, stopLoyly]);
+  }, [start, stop]);
 
   return {
-    startLoyly,
-    stopLoyly,
+    start,
+    stop,
     postLoyly,
   };
 };
