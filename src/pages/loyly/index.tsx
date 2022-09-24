@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { Gyroscope } from 'expo-sensors';
 import { useGyroscope } from '../../hooks/useGyroscope';
+import { useLoyly } from '../../hooks/useLoyly';
 
 export const Loyly = () => {
-  const [isStart, setStart] = useState<boolean>(false);
   const { z } = useGyroscope();
+  const { postLoyly } = useLoyly();
 
-  if (!isStart && Math.abs(z) > 2) {
-    setStart(() => true);
-  }
+  const runLoyly = useCallback(async () => {
+    await postLoyly();
+  }, [postLoyly]);
 
-  if (isStart && Math.round(z) === 0) {
-    console.log('ロウリュAPIへリクエスト');
-    setStart(() => false);
+  if (Math.abs(z) > 3) {
+    runLoyly();
   }
 
   if (!Gyroscope.isAvailableAsync())
@@ -28,7 +28,7 @@ export const Loyly = () => {
   return (
     <View>
       <Text>Gyroscope:</Text>
-      <Text>x: {Math.round(z)}</Text>
+      <Text>z: {z}</Text>
     </View>
   );
 };
