@@ -11,16 +11,18 @@ export const Aufguss = () => {
 
   if (Math.abs(x) >= 4 || Math.abs(y) >= 4) {
     counter.current = 0;
-    if (requested) return;
-    startAufguss();
+    if (!requested) {
+      startAufguss();
+    }
   }
 
   // 2.1秒間スマホを振っていない場合は止める
   if ((Math.abs(x) < 4 || Math.abs(y) < 4) && requested) {
     counter.current += 1;
-    if (counter.current < 7) return;
-    stopAufguss();
-    counter.current = 0;
+    if (counter.current >= 7) {
+      stopAufguss();
+      counter.current = 0;
+    }
   }
 
   if (!Gyroscope.isAvailableAsync())
