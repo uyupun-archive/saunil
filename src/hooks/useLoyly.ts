@@ -9,19 +9,21 @@ export const useLoyly = () => {
     try {
       if (requested.current) return;
       requested.current = true;
-      const res = await axiosClient.post<{ message: string }>(
-        `humidifier/start`
-      );
-      console.log(res.data.message);
+      await axiosClient.post<{ message: string }>(`humidifier/start`);
+      console.log('start');
+
+      // 10秒後に止める
+      setTimeout(async () => {
+        await axiosClient.post<{ message: string }>(`humidifier/stop`);
+        requested.current = false;
+        console.log('stop');
+      }, 10000);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(error.message);
         return;
       }
       console.error('エラーが発生しました。');
-    } finally {
-      // 5秒後にリクエストできるようになる
-      setTimeout(() => (requested.current = false), 5000);
     }
   }, []);
 
