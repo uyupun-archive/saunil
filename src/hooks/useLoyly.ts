@@ -1,3 +1,4 @@
+import { API_URL } from '@env';
 import axios from 'axios';
 import { useCallback, useRef } from 'react';
 import { axiosClient } from '../utils/axiosClient';
@@ -7,7 +8,7 @@ export const useLoyly = () => {
 
   const start = useCallback(async () => {
     try {
-      await axiosClient.post<{ message: string }>(`humidifier/start`);
+      await axiosClient.post<{ message: string }>(`${API_URL}humidifier/start`);
       console.log('start');
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -20,7 +21,7 @@ export const useLoyly = () => {
 
   const stop = useCallback(async () => {
     try {
-      await axiosClient.post<{ message: string }>(`humidifier/stop`);
+      await axiosClient.post<{ message: string }>(`${API_URL}humidifier/stop`);
       console.log('stop');
     } catch (error) {
       if (axios.isAxiosError(error)) {
