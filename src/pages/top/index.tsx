@@ -9,7 +9,7 @@ import { Button } from '@rneui/themed';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FAB060',
     alignItems: 'center',
     justifyContent: 'center',
   },
