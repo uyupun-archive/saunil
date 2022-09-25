@@ -1,11 +1,39 @@
 import React, { useEffect, useRef } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Gyroscope } from 'expo-sensors';
 import { useGyroscope } from '../../hooks/useGyroscope';
 import { useAufguss } from '../../hooks/useAufguss';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackNavigator } from '../../types/stackNavigator';
+import { FontAwesome, Foundation } from '@expo/vector-icons';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  text: {
+    fontSize: 36,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  mobilePhone: {
+    transform: [{ rotateZ: '-90deg' }],
+    margin: 20,
+  },
+  arrowsExpand: {
+    transform: [{ rotateZ: '-45deg' }],
+    margin: 20,
+  },
+});
 
 export const Aufguss = () => {
   const { x, y } = useGyroscope();
@@ -41,7 +69,7 @@ export const Aufguss = () => {
 
   if (!Gyroscope.isAvailableAsync())
     return (
-      <View>
+      <View style={styles.container}>
         <Text>
           &#9888;ジャイロセンサーが機能するスマートフォンをご使用ください。
         </Text>
@@ -49,10 +77,22 @@ export const Aufguss = () => {
     );
 
   return (
-    <View>
-      <Text>Gyroscope:</Text>
-      <Text>x: {Math.round(x)}</Text>
-      <Text>y: {Math.round(y)}</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>上下に振れ！</Text>
+      <View style={styles.row}>
+        <FontAwesome
+          name="mobile-phone"
+          size={128}
+          color="black"
+          style={styles.mobilePhone}
+        />
+        <Foundation
+          name="arrows-expand"
+          size={64}
+          color="black"
+          style={styles.arrowsExpand}
+        />
+      </View>
     </View>
   );
 };
