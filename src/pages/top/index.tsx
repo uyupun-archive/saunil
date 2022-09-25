@@ -14,7 +14,6 @@ import { StackNavigator } from '../../types/stackNavigator';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAB060',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -76,7 +75,7 @@ export const Top = () => {
           style={styles.modeButton}
           onPress={() => navigation.navigate('Loyly')}
         >
-          <Text style={styles.buttonText}>ロウリュモードへ"</Text>
+          <Text style={styles.buttonText}>ロウリュモードへ</Text>
         </Pressable>
         <StatusBar style="auto" />
       </View>
