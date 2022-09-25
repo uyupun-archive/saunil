@@ -9,7 +9,6 @@ import { StackNavigator } from '../../types/stackNavigator';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundImage: TopPageBg,
     backgroundColor: '#FAB060',
     alignItems: 'center',
     justifyContent: 'center',
