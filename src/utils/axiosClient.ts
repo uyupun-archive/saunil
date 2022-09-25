@@ -1,8 +1,7 @@
-import { API_URL, UYUNPUNION_TOKEN } from '@env';
+import { UYUNPUNION_TOKEN } from '@env';
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: API_URL,
   timeout: 3000,
 });
 
