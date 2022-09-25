@@ -1,10 +1,15 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackNavigator } from '../../types/stackNavigator';
-//import { TopPageBg } from '../../assets/topPageBG.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -52,24 +57,29 @@ export const Top = () => {
   const navigation = useNavigation<NativeStackNavigationProp<StackNavigator>>();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>SANNIL</Text>
-      <Text style={styles.subtitle}>
-        サウナはもう要らない　ここがサウナだから
-      </Text>
-      <Pressable
-        style={styles.modeButton}
-        onPress={() => navigation.navigate('Aufguss')}
-      >
-        <Text style={styles.buttonText}>アウフグースモードへ</Text>
-      </Pressable>
-      <Pressable
-        style={styles.modeButton}
-        onPress={() => navigation.navigate('Loyly')}
-      >
-        <Text style={styles.buttonText}>ロウリュモードへ"</Text>
-      </Pressable>
-      <StatusBar style="auto" />
-    </View>
+    <ImageBackground
+      source={require('../../assets/topPageBG.png')}
+      style={{ width: '100%', height: '100%' }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>SAUNIL</Text>
+        <Text style={styles.subtitle}>
+          サウナはもう要らない　ここがサウナだから
+        </Text>
+        <Pressable
+          style={styles.modeButton}
+          onPress={() => navigation.navigate('Aufguss')}
+        >
+          <Text style={styles.buttonText}>アウフグースモードへ</Text>
+        </Pressable>
+        <Pressable
+          style={styles.modeButton}
+          onPress={() => navigation.navigate('Loyly')}
+        >
+          <Text style={styles.buttonText}>ロウリュモードへ"</Text>
+        </Pressable>
+        <StatusBar style="auto" />
+      </View>
+    </ImageBackground>
   );
 };
