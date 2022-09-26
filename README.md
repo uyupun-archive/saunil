@@ -1,4 +1,4 @@
-# spajam-2022-app
+# SAUNIL
 
 ## 環境構築
 
